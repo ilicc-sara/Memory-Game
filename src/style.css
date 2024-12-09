@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  text-align: center;
+  margin: 10vh auto;
+}
+
+h1 {
+  margin-bottom: 5vh;
+}
+
+.game-cont {
+  display: flex;
+  place-items: center;
+  justify-content: space-evenly;
+  margin-top: 15vh;
+}
+
+.mode-btn {
+  height: 60px;
+  padding: 20px 36px;
+  border-radius: 16px;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #2f58fe;
+  cursor: pointer;
+  transition: 0.5s;
+  width: 240px;
+}
+
+.card-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 15px;
+  column-gap: 15px;
+}
+
+.card {
+  height: 100px;
+  width: 120px;
+  background-color: yellowgreen;
+}
