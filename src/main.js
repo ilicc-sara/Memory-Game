@@ -49,16 +49,10 @@ cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 // makeRows(9);
 // makeColumns(9);
 
-function makeRows(rowNum) {
-  // Creates rows
-  for (let r = 0; r < rowNum; r++) {
-    let row = document.createElement("div");
-    cardBox.appendChild(row).className = "card";
-  }
-}
+const squares = [];
+let newSquare;
 
 // cardBox.innerHTML = `<div class="card"></div>`;
-makeRows(9);
 
 function squareCreator() {
   // prettier-ignore
@@ -76,7 +70,6 @@ function squareCreator() {
   return { getSquare, getId, getIsClicked, getColor };
 }
 
-const memoryCard = squareCreator();
 // console.log(memoryCard.getSquare());
 
 // napravi funkciju create square grid
@@ -84,7 +77,7 @@ const memoryCard = squareCreator();
 // 1. napravi x squareova (i gurni ih) u squares array (x poziva funkciji square creator)
 // 2. napravi x br squareova na ekranu
 // za ovo istraziti npr : how to create 16x16 grid with js
-function squareManager() {
+function squareManagerCreator() {
   const squares = [];
 
   const addToSquares = (square) => squares.push(square);
@@ -94,9 +87,17 @@ function squareManager() {
   return { addToSquares, getSquares, shuffleSquares };
 }
 
-cardBox.addEventListener("click", function (e) {
-  if (!e.target.classList.contains("card")) return;
+function createSquareGrid(num) {
+  for (let i = 0; i < num; i++) {
+    managerSquare.addToSquares(squareCreator());
 
-  e.target.setAttribute("data-id", memoryCard.getId());
-  e.target.style.backgrundColor = memoryCard.getColor();
-});
+    let square = document.createElement("div");
+    cardBox.appendChild(square).className = "card";
+  }
+}
+const managerSquare = squareManagerCreator();
+const creatorSquare = squareCreator();
+createSquareGrid(9);
+console.log(managerSquare.getSquares());
+
+console.log(managerSquare.getSquares());
