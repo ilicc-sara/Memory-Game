@@ -2,6 +2,10 @@ import "./style.css";
 
 const cards = document.querySelectorAll(".card");
 const cardBox = document.querySelector(".card-box");
+
+let rows = document.getElementsByClassName("gridRow");
+let cells = document.getElementsByClassName("cell");
+
 const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -17,6 +21,44 @@ const randomColor = () =>
   `rgb(${randomNum(0, 225)}, ${randomNum(0, 255)}, ${randomNum(0, 255)})`;
 
 cards.forEach((card) => (card.style.backgroundColor = randomColor()));
+
+// function defaultGrid() {
+//   makeRows(9);
+//   makeColumns(9);
+// }
+
+// // Takes (rows, columns) input and makes a grid
+// function makeRows(rowNum) {
+//   // Creates rows
+//   for (let r = 0; r < rowNum; r++) {
+//     let row = document.createElement("div");
+//     cardBox.appendChild(row).className = "gridRow";
+//   }
+// }
+
+// // Creates columns
+// function makeColumns(cellNum) {
+//   for (let i = 0; i < rows.length; i++) {
+//     for (let j = 0; j < cellNum; j++) {
+//       let newCell = document.createElement("div");
+//       rows[j].appendChild(newCell).className = "cell";
+//     }
+//   }
+// }
+
+// makeRows(9);
+// makeColumns(9);
+
+function makeRows(rowNum) {
+  // Creates rows
+  for (let r = 0; r < rowNum; r++) {
+    let row = document.createElement("div");
+    cardBox.appendChild(row).className = "card";
+  }
+}
+
+// cardBox.innerHTML = `<div class="card"></div>`;
+makeRows(9);
 
 function squareCreator() {
   // prettier-ignore
@@ -35,7 +77,7 @@ function squareCreator() {
 }
 
 const memoryCard = squareCreator();
-console.log(memoryCard.getSquare());
+// console.log(memoryCard.getSquare());
 
 // napravi funkciju create square grid
 // ta fja treba raditi dve stvari
@@ -58,28 +100,3 @@ cardBox.addEventListener("click", function (e) {
   e.target.setAttribute("data-id", memoryCard.getId());
   e.target.style.backgrundColor = memoryCard.getColor();
 });
-
-// Creates a default grid sized 16x16
-function defaultGrid() {
-  makeRows(16);
-  makeColumns(16);
-}
-
-// Takes (rows, columns) input and makes a grid
-function makeRows(rowNum) {
-  // Creates rows
-  for (r = 0; r < rowNum; r++) {
-    let row = document.createElement("div");
-    container.appendChild(row).className = "gridRow";
-  }
-}
-
-// Creates columns
-function makeColumns(cellNum) {
-  for (i = 0; i < rows.length; i++) {
-    for (j = 0; j < cellNum; j++) {
-      let newCell = document.createElement("div");
-      rows[j].appendChild(newCell).className = "cell";
-    }
-  }
-}
