@@ -52,11 +52,12 @@ cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 const squares = [];
 let newSquare;
 
-// cardBox.innerHTML = `<div class="card"></div>`;
+let squareColor = randomColor();
+let squareId = crypto.randomUUID();
 
 function squareCreator() {
   // prettier-ignore
-  const square = { id: crypto.randomUUID(), isClicked: false, color: randomColor() };
+  const square = { id: squareColor, isClicked: false, color: squareId };
 
   // cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 
@@ -67,7 +68,7 @@ function squareCreator() {
 
   const getColor = () => square.color;
 
-  return { getSquare, getId, getIsClicked, getColor };
+  return { getSquare, getId, getIsClicked, getColor, changeStatus };
 }
 
 // napravi funkciju create square grid
