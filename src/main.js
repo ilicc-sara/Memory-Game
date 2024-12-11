@@ -62,15 +62,13 @@ function squareCreator() {
 
   const getSquare = () => square;
   const getId = () => square.id;
-  // const setId = () =>
-  //   cards.forEach((card) => card.setAttribute("data-id", square.id));
   const getIsClicked = () => square.isClicked;
+  const changeStatus = (status) => (square.isClicked = status);
+
   const getColor = () => square.color;
 
   return { getSquare, getId, getIsClicked, getColor };
 }
-
-// console.log(memoryCard.getSquare());
 
 // napravi funkciju create square grid
 // ta fja treba raditi dve stvari
@@ -87,17 +85,16 @@ function squareManagerCreator() {
   return { addToSquares, getSquares, shuffleSquares };
 }
 
+const managerSquare = squareManagerCreator();
+const creatorSquare = squareCreator();
 function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
-    managerSquare.addToSquares(squareCreator());
+    managerSquare.addToSquares(creatorSquare.getSquare());
 
     let square = document.createElement("div");
     cardBox.appendChild(square).className = "card";
   }
 }
-const managerSquare = squareManagerCreator();
-const creatorSquare = squareCreator();
 createSquareGrid(9);
-console.log(managerSquare.getSquares());
 
 console.log(managerSquare.getSquares());
