@@ -52,12 +52,11 @@ cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 const squares = [];
 let newSquare;
 
-let squareColor = randomColor();
-let squareId = crypto.randomUUID();
-
 function squareCreator() {
   // prettier-ignore
-  const square = { id: squareColor, isClicked: false, color: squareId };
+  let squareId = crypto.randomUUID();
+  let squareColor = randomColor();
+  let square = { id: squareId, isClicked: false, color: squareColor };
 
   // cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 
