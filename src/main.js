@@ -84,11 +84,11 @@ function squareManagerCreator() {
 
   return { addToSquares, getSquares, shuffleSquares };
 }
-
 const managerSquare = squareManagerCreator();
-const creatorSquare = squareCreator();
+
 function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
+    const creatorSquare = squareCreator();
     managerSquare.addToSquares(creatorSquare.getSquare());
 
     let square = document.createElement("div");
