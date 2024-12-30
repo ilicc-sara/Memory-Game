@@ -22,33 +22,6 @@ const randomColor = () =>
 
 cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 
-// function defaultGrid() {
-//   makeRows(9);
-//   makeColumns(9);
-// }
-
-// // Takes (rows, columns) input and makes a grid
-// function makeRows(rowNum) {
-//   // Creates rows
-//   for (let r = 0; r < rowNum; r++) {
-//     let row = document.createElement("div");
-//     cardBox.appendChild(row).className = "gridRow";
-//   }
-// }
-
-// // Creates columns
-// function makeColumns(cellNum) {
-//   for (let i = 0; i < rows.length; i++) {
-//     for (let j = 0; j < cellNum; j++) {
-//       let newCell = document.createElement("div");
-//       rows[j].appendChild(newCell).className = "cell";
-//     }
-//   }
-// }
-
-// makeRows(9);
-// makeColumns(9);
-
 const squares = [];
 let newSquare;
 
@@ -69,6 +42,13 @@ function squareCreator() {
 
   return { getSquare, getId, getIsClicked, getColor, changeStatus };
 }
+const arr = [];
+const square1 = squareCreator();
+const square2 = squareCreator();
+console.log("square1", square1.getSquare());
+console.log("square2", square2.getSquare());
+
+arr.push(squareCreator());
 
 // napravi funkciju create square grid
 // ta fja treba raditi dve stvari
@@ -86,15 +66,18 @@ function squareManagerCreator() {
 }
 const managerSquare = squareManagerCreator();
 
-function createSquareGrid(num) {
-  for (let i = 0; i < num; i++) {
-    const creatorSquare = squareCreator();
-    managerSquare.addToSquares(creatorSquare.getSquare());
-
-    let square = document.createElement("div");
-    cardBox.appendChild(square).className = "card";
-  }
-}
-createSquareGrid(9);
-
+managerSquare.addToSquares(squareCreator());
 console.log(managerSquare.getSquares());
+
+// function createSquareGrid(num) {
+//   for (let i = 0; i < num; i++) {
+//     const creatorSquare = squareCreator();
+//     managerSquare.addToSquares(creatorSquare.getSquare());
+
+//     let square = document.createElement("div");
+//     cardBox.appendChild(square).className = "card";
+//   }
+// }
+// createSquareGrid(9);
+
+// console.log(managerSquare.getSquares());
