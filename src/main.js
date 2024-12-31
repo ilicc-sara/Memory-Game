@@ -1,6 +1,6 @@
 import "./style.css";
 
-const cards = document.querySelectorAll(".card");
+// const cards = document.querySelectorAll(".card");
 const cardBox = document.querySelector(".card-box");
 
 let rows = document.getElementsByClassName("gridRow");
@@ -20,16 +20,14 @@ const randomNum = (min, max) =>
 const randomColor = () =>
   `rgb(${randomNum(0, 225)}, ${randomNum(0, 255)}, ${randomNum(0, 255)})`;
 
-cards.forEach((card) => (card.style.backgroundColor = randomColor()));
+// cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 
 const squares = [];
 let newSquare;
 
 function squareCreator() {
   // prettier-ignore
-  let squareId = crypto.randomUUID();
-  let squareColor = randomColor();
-  let square = { id: squareId, isClicked: false, color: squareColor };
+  let square = { id: crypto.randomUUID(), isClicked: false, color: randomColor() };
 
   // cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 
@@ -42,13 +40,13 @@ function squareCreator() {
 
   return { getSquare, getId, getIsClicked, getColor, changeStatus };
 }
-const arr = [];
-const square1 = squareCreator();
-const square2 = squareCreator();
-console.log("square1", square1.getSquare());
-console.log("square2", square2.getSquare());
+// const arr = [];
+// const square1 = squareCreator();
+// const square2 = squareCreator();
+// console.log("square1", square1.getSquare());
+// console.log("square2", square2.getSquare());
 
-arr.push(squareCreator());
+// arr.push(squareCreator());
 
 // napravi funkciju create square grid
 // ta fja treba raditi dve stvari
@@ -66,18 +64,43 @@ function squareManagerCreator() {
 }
 const managerSquare = squareManagerCreator();
 
-managerSquare.addToSquares(squareCreator());
-console.log(managerSquare.getSquares());
+// managerSquare.addToSquares(squareCreator());
+// console.log(managerSquare.getSquares());
 
-// function createSquareGrid(num) {
-//   for (let i = 0; i < num; i++) {
-//     const creatorSquare = squareCreator();
-//     managerSquare.addToSquares(creatorSquare.getSquare());
+let square;
 
-//     let square = document.createElement("div");
-//     cardBox.appendChild(square).className = "card";
-//   }
-// }
-// createSquareGrid(9);
+function createSquareGrid(num) {
+  for (let i = 0; i < num; i++) {
+    // managerSquare.addToSquares(squareCreator());
+    const creatorSquare = squareCreator();
+    managerSquare.addToSquares(creatorSquare);
+    console.log(managerSquare.getSquares()[i].getSquare());
+
+    square = document.createElement("div");
+    cardBox.appendChild(square).className = "card";
+
+    square.setAttribute("data-id", creatorSquare.getId());
+
+    square.style.backgroundColor = creatorSquare.getColor();
+
+    square.addEventListener("click", function (e) {
+      console.log(e.target.getAttribute("data-id"));
+
+      const targetSquare = managerSquare
+        .getSquares()
+        .find((card) => card.getId() === e.target.getAttribute("data-id"));
+
+      // targetSquare.isClicked = true;
+      console.log("target square", targetSquare.getSquare());
+      targetSquare.changeStatus(true);
+      console.log("target square after", targetSquare.getSquare());
+
+      console.log(managerSquare.getSquares());
+      managerSquare.shuffleSquares();
+      console.log(managerSquare.getSquares());
+    });
+  }
+}
+createSquareGrid(9);
 
 // console.log(managerSquare.getSquares());
