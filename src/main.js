@@ -103,19 +103,22 @@ createSquareGrid(9);
 cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
   managerSquare.shuffleSquares();
-  console.log(managerSquare.getSquares());
-  // console.log(managerSquare.getSquares(creatorSquare));
-
-  // console.log(e.target.getAttribute("data-id"));
+  // console.log(managerSquare.getSquares().forEach(square => console.log(square.getColor())));
 
   const targetSquare = managerSquare
     .getSquares()
     .find((card) => card.getId() === e.target.getAttribute("data-id"));
-
   // targetSquare.isClicked = true;
   console.log("target square", targetSquare.getSquare());
   targetSquare.changeStatus(true);
   console.log("target square after", targetSquare.getSquare());
+
+  managerSquare.getSquares().forEach((square) => {
+    console.log("Square:", square.getSquare());
+  });
+  // console.log(managerSquare.getSquares(creatorSquare));
+
+  // console.log(e.target.getAttribute("data-id"));
 
   managerSquare.shuffleSquares();
 });
