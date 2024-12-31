@@ -68,11 +68,12 @@ const managerSquare = squareManagerCreator();
 // console.log(managerSquare.getSquares());
 
 let square;
+let creatorSquare;
 
 function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
     // managerSquare.addToSquares(squareCreator());
-    const creatorSquare = squareCreator();
+    creatorSquare = squareCreator();
     managerSquare.addToSquares(creatorSquare);
     console.log(managerSquare.getSquares()[i].getSquare());
 
@@ -103,8 +104,9 @@ cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
   managerSquare.shuffleSquares();
   console.log(managerSquare.getSquares());
+  // console.log(managerSquare.getSquares(creatorSquare));
 
-  console.log(e.target.getAttribute("data-id"));
+  // console.log(e.target.getAttribute("data-id"));
 
   const targetSquare = managerSquare
     .getSquares()
