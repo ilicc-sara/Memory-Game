@@ -83,24 +83,37 @@ function createSquareGrid(num) {
 
     square.style.backgroundColor = creatorSquare.getColor();
 
-    square.addEventListener("click", function (e) {
-      console.log(e.target.getAttribute("data-id"));
+    // square.addEventListener("click", function (e) {
+    //   console.log(e.target.getAttribute("data-id"));
 
-      const targetSquare = managerSquare
-        .getSquares()
-        .find((card) => card.getId() === e.target.getAttribute("data-id"));
+    //   const targetSquare = managerSquare
+    //     .getSquares()
+    //     .find((card) => card.getId() === e.target.getAttribute("data-id"));
 
-      // targetSquare.isClicked = true;
-      console.log("target square", targetSquare.getSquare());
-      targetSquare.changeStatus(true);
-      console.log("target square after", targetSquare.getSquare());
-
-      console.log(managerSquare.getSquares());
-      managerSquare.shuffleSquares();
-      console.log(managerSquare.getSquares());
-    });
+    //   // targetSquare.isClicked = true;
+    //   console.log("target square", targetSquare.getSquare());
+    //   targetSquare.changeStatus(true);
+    //   console.log("target square after", targetSquare.getSquare());
+    // });
   }
 }
 createSquareGrid(9);
 
-// console.log(managerSquare.getSquares());
+cardBox.addEventListener("click", function (e) {
+  if (!e.target.classList.contains("card")) return;
+  managerSquare.shuffleSquares();
+  console.log(managerSquare.getSquares());
+
+  console.log(e.target.getAttribute("data-id"));
+
+  const targetSquare = managerSquare
+    .getSquares()
+    .find((card) => card.getId() === e.target.getAttribute("data-id"));
+
+  // targetSquare.isClicked = true;
+  console.log("target square", targetSquare.getSquare());
+  targetSquare.changeStatus(true);
+  console.log("target square after", targetSquare.getSquare());
+
+  managerSquare.shuffleSquares();
+});
