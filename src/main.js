@@ -1,15 +1,7 @@
 import "./style.css";
-import { randomColor } from "./helpers";
+import { randomColor, shuffle } from "./helpers";
 // const cards = document.querySelectorAll(".card");
 const cardBox = document.querySelector(".card-box");
-
-const shuffle = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
 
 const squares = [];
 let newSquare;
@@ -62,6 +54,7 @@ const managerSquare = squareManagerCreator();
 function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
     // managerSquare.addToSquares(squareCreator());
+
     const creatorSquare = squareCreator();
     managerSquare.addToSquares(creatorSquare);
     console.log(managerSquare.getSquares()[i].getSquare());
@@ -72,26 +65,12 @@ function createSquareGrid(num) {
     square.setAttribute("data-id", creatorSquare.getId());
 
     square.style.backgroundColor = creatorSquare.getColor();
-
-    // square.addEventListener("click", function (e) {
-    //   console.log(e.target.getAttribute("data-id"));
-
-    //   const targetSquare = managerSquare
-    //     .getSquares()
-    //     .find((card) => card.getId() === e.target.getAttribute("data-id"));
-
-    //   // targetSquare.isClicked = true;
-    //   console.log("target square", targetSquare.getSquare());
-    //   targetSquare.changeStatus(true);
-    //   console.log("target square after", targetSquare.getSquare());
-    // });
   }
 }
-createSquareGrid(9);
+createSquareGrid(4);
 
 cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
-  managerSquare.shuffleSquares();
   // console.log(managerSquare.getSquares().forEach(square => console.log(square.getColor())));
 
   const targetSquare = managerSquare
@@ -102,14 +81,24 @@ cardBox.addEventListener("click", function (e) {
   targetSquare.changeStatus(true);
   console.log("target square after", targetSquare.getSquare());
 
-  managerSquare.getSquares().forEach((square) => {
-    console.log("Square:", square.getSquare());
-  });
+  // managerSquare.getSquares().forEach((square) => {
+  //   console.log("Square:", square.getSquare());
+  // });
   // console.log(managerSquare.getSquares(creatorSquare));
 
   // console.log(e.target.getAttribute("data-id"));
 
   managerSquare.shuffleSquares();
+
+  managerSquare.getSquares().forEach((square) => {
+    console.log("Square: pre praznjenja", square.getSquare());
+  });
   cardBox.innerHTML = "";
-  createSquareGrid(9);
+  managerSquare.getSquares().forEach((square) => {
+    console.log("Square: posle praznjenja", square.getSquare());
+  });
+  createSquareGrid(4);
+  managerSquare.getSquares().forEach((square) => {
+    console.log("Square: nakon poziva funkcije", square.getSquare());
+  });
 });
