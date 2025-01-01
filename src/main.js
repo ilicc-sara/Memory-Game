@@ -1,10 +1,7 @@
 import "./style.css";
-
+import { randomColor } from "./helpers";
 // const cards = document.querySelectorAll(".card");
 const cardBox = document.querySelector(".card-box");
-
-let rows = document.getElementsByClassName("gridRow");
-let cells = document.getElementsByClassName("cell");
 
 const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -13,14 +10,6 @@ const shuffle = (array) => {
   }
   return array;
 };
-
-const randomNum = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
-
-const randomColor = () =>
-  `rgb(${randomNum(0, 225)}, ${randomNum(0, 255)}, ${randomNum(0, 255)})`;
-
-// cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 
 const squares = [];
 let newSquare;
@@ -67,17 +56,17 @@ const managerSquare = squareManagerCreator();
 // managerSquare.addToSquares(squareCreator());
 // console.log(managerSquare.getSquares());
 
-let square;
-let creatorSquare;
+// let square;
+// let creatorSquare;
 
 function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
     // managerSquare.addToSquares(squareCreator());
-    creatorSquare = squareCreator();
+    const creatorSquare = squareCreator();
     managerSquare.addToSquares(creatorSquare);
     console.log(managerSquare.getSquares()[i].getSquare());
 
-    square = document.createElement("div");
+    const square = document.createElement("div");
     cardBox.appendChild(square).className = "card";
 
     square.setAttribute("data-id", creatorSquare.getId());
@@ -121,4 +110,6 @@ cardBox.addEventListener("click", function (e) {
   // console.log(e.target.getAttribute("data-id"));
 
   managerSquare.shuffleSquares();
+  cardBox.innerHTML = "";
+  createSquareGrid(9);
 });
