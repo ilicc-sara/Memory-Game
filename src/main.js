@@ -1,16 +1,11 @@
 import "./style.css";
 import { randomColor, shuffle } from "./helpers";
-// const cards = document.querySelectorAll(".card");
-const cardBox = document.querySelector(".card-box");
 
-const squares = [];
-let newSquare;
+const cardBox = document.querySelector(".card-box");
 
 function squareCreator() {
   // prettier-ignore
   let square = { id: crypto.randomUUID(), isClicked: false, color: randomColor() };
-
-  // cards.forEach((card) => (card.style.backgroundColor = randomColor()));
 
   const getSquare = () => square;
   const getId = () => square.id;
@@ -21,19 +16,7 @@ function squareCreator() {
 
   return { getSquare, getId, getIsClicked, getColor, changeStatus };
 }
-// const arr = [];
-// const square1 = squareCreator();
-// const square2 = squareCreator();
-// console.log("square1", square1.getSquare());
-// console.log("square2", square2.getSquare());
 
-// arr.push(squareCreator());
-
-// napravi funkciju create square grid
-// ta fja treba raditi dve stvari
-// 1. napravi x squareova (i gurni ih) u squares array (x poziva funkciji square creator)
-// 2. napravi x br squareova na ekranu
-// za ovo istraziti npr : how to create 16x16 grid with js
 function squareManagerCreator() {
   const squares = [];
 
@@ -44,12 +27,6 @@ function squareManagerCreator() {
   return { addToSquares, getSquares, shuffleSquares };
 }
 const managerSquare = squareManagerCreator();
-
-// managerSquare.addToSquares(squareCreator());
-// console.log(managerSquare.getSquares());
-
-// let square;
-// let creatorSquare;
 
 function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
@@ -67,7 +44,7 @@ function createSquareGrid(num) {
     square.style.backgroundColor = creatorSquare.getColor();
   }
 }
-createSquareGrid(4);
+createSquareGrid(9);
 
 cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
@@ -88,17 +65,30 @@ cardBox.addEventListener("click", function (e) {
 
   // console.log(e.target.getAttribute("data-id"));
 
+  managerSquare.getSquares().forEach((square) => {
+    console.log("Square: pre mesanja", square.getSquare());
+  });
+
+  // cardBox.innerHTML = "";
+  managerSquare.getSquares().forEach((square) => {
+    console.log("Square: posle mesanja", square.getSquare());
+  });
+  // createSquareGrid(4);
+  // managerSquare.getSquares().forEach((square) => {
+  //   console.log("Square: nakon poziva funkcije", square.getSquare());
+  // });
+
+  cardBox.innerHTML = "";
   managerSquare.shuffleSquares();
 
-  managerSquare.getSquares().forEach((square) => {
-    console.log("Square: pre praznjenja", square.getSquare());
-  });
-  cardBox.innerHTML = "";
-  managerSquare.getSquares().forEach((square) => {
-    console.log("Square: posle praznjenja", square.getSquare());
-  });
-  createSquareGrid(4);
-  managerSquare.getSquares().forEach((square) => {
-    console.log("Square: nakon poziva funkcije", square.getSquare());
-  });
+  for (let i = 0; i < managerSquare.getSquares().length; i++) {
+    console.log(managerSquare.getSquares()[i].getSquare());
+
+    const square = document.createElement("div");
+    cardBox.appendChild(square).className = "card";
+
+    square.setAttribute("data-id", managerSquare.getSquares()[i].getId());
+
+    square.style.backgroundColor = managerSquare.getSquares()[i].getColor();
+  }
 });
