@@ -3,6 +3,9 @@ import { randomColor, shuffle } from "./helpers";
 
 const cardBox = document.querySelector(".card-box");
 
+const numberClicked = document.querySelector(".clicked");
+const numberOverall = document.querySelector(".overall");
+
 function squareCreator() {
   // prettier-ignore
   let square = { id: crypto.randomUUID(), isClicked: false, color: randomColor() };
@@ -44,10 +47,15 @@ function createSquareGrid(num) {
     square.style.backgroundColor = creatorSquare.getColor();
   }
 }
-createSquareGrid(9);
+createSquareGrid(3);
+numberOverall.textContent = managerSquare.getSquares().length;
+let clicked = 0;
 
 cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
+
+  clicked++;
+  console.log(clicked);
 
   // console.log(managerSquare.getSquares().forEach(square => console.log(square.getColor())));
 
@@ -57,11 +65,21 @@ cardBox.addEventListener("click", function (e) {
   // targetSquare.isClicked = true;
   // console.log("target square", targetSquare.getSquare()); ********************
 
+  const numClicked = managerSquare
+    .getSquares()
+    .filter((x) => x.getIsClicked() === true);
+
   if (targetSquare.getIsClicked() === false) {
     targetSquare.changeStatus(true);
+    numberClicked.textContent = clicked;
   } else {
     alert("GAME OVER");
   }
+
+  if (managerSquare.getSquares().every((x) => x.getIsClicked() === true)) {
+    alert("YOU WON");
+  }
+
   // console.log("target square after", targetSquare.getSquare());********************
 
   // managerSquare.getSquares().forEach((square) => {
