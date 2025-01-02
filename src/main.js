@@ -51,6 +51,25 @@ createSquareGrid(9);
 numberOverall.textContent = managerSquare.getSquares().length;
 let clicked = 0;
 
+// function makeRows(rows, cols) {
+//   cardBox.style.gridTemplateColumns = `repeat(${rows}, minmax(0, 1fr))`;
+//   cardBox.style.gridTemplateRows = `repeat(${cols}, minmax(0, 1fr)`;
+//   for (let c = 0; c < rows * cols; c++) {
+//     const creatorSquare = squareCreator();
+//     managerSquare.addToSquares(creatorSquare);
+//     console.log(managerSquare.getSquares()[i].getSquare());
+
+//     let square = document.createElement("div");
+//     cardBox.appendChild(square).className = "card";
+
+//     square.setAttribute("data-id", creatorSquare.getId());
+
+//     square.style.backgroundColor = creatorSquare.getColor();
+//   }
+// }
+
+// makeRows(3, 3);
+
 cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
 
