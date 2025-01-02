@@ -47,6 +47,12 @@ h1 {
   column-gap: 15px;
 }
 
+.btn-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .card {
   height: 100px;
   width: 120px;
