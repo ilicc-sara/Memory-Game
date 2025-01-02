@@ -48,15 +48,21 @@ createSquareGrid(9);
 
 cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
+
   // console.log(managerSquare.getSquares().forEach(square => console.log(square.getColor())));
 
   const targetSquare = managerSquare
     .getSquares()
     .find((card) => card.getId() === e.target.getAttribute("data-id"));
   // targetSquare.isClicked = true;
-  console.log("target square", targetSquare.getSquare());
-  targetSquare.changeStatus(true);
-  console.log("target square after", targetSquare.getSquare());
+  // console.log("target square", targetSquare.getSquare()); ********************
+
+  if (targetSquare.getIsClicked() === false) {
+    targetSquare.changeStatus(true);
+  } else {
+    alert("GAME OVER");
+  }
+  // console.log("target square after", targetSquare.getSquare());********************
 
   // managerSquare.getSquares().forEach((square) => {
   //   console.log("Square:", square.getSquare());
@@ -66,12 +72,12 @@ cardBox.addEventListener("click", function (e) {
   // console.log(e.target.getAttribute("data-id"));
 
   managerSquare.getSquares().forEach((square) => {
-    console.log("Square: pre mesanja", square.getSquare());
+    // console.log("Square: pre mesanja", square.getSquare());*******************
   });
 
   // cardBox.innerHTML = "";
   managerSquare.getSquares().forEach((square) => {
-    console.log("Square: posle mesanja", square.getSquare());
+    // console.log("Square: posle mesanja", square.getSquare()); *****************
   });
   // createSquareGrid(4);
   // managerSquare.getSquares().forEach((square) => {
@@ -82,7 +88,7 @@ cardBox.addEventListener("click", function (e) {
   managerSquare.shuffleSquares();
 
   for (let i = 0; i < managerSquare.getSquares().length; i++) {
-    console.log(managerSquare.getSquares()[i].getSquare());
+    // console.log(managerSquare.getSquares()[i].getSquare());**********************
 
     const square = document.createElement("div");
     cardBox.appendChild(square).className = "card";
@@ -91,4 +97,12 @@ cardBox.addEventListener("click", function (e) {
 
     square.style.backgroundColor = managerSquare.getSquares()[i].getColor();
   }
+
+  // const clicked = managerSquare
+  //   .getSquares()
+  //   .find((x) => x.getId() === e.target.getAttribute("data-id"));
+
+  // console.log(clicked.getSquare());
+
+  // console.log(clicked.getIsClicked());
 });
