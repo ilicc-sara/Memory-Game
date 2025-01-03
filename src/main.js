@@ -6,6 +6,10 @@ const cardBox = document.querySelector(".card-box");
 const numberClicked = document.querySelector(".clicked");
 const numberOverall = document.querySelector(".overall");
 
+const easy = document.querySelector(".easy");
+const medium = document.querySelector(".medium");
+const hard = document.querySelector(".hard");
+
 function squareCreator() {
   // prettier-ignore
   let square = { id: crypto.randomUUID(), isClicked: false, color: randomColor() };
@@ -27,48 +31,51 @@ function squareManagerCreator() {
   const getSquares = () => squares;
   const shuffleSquares = () => shuffle(squares);
 
-  return { addToSquares, getSquares, shuffleSquares };
+  const emptyArray = () => squares.splice(0, squares.length);
+
+  return { addToSquares, getSquares, shuffleSquares, emptyArray };
 }
 const managerSquare = squareManagerCreator();
 
-function createSquareGrid(num) {
-  for (let i = 0; i < num; i++) {
-    // managerSquare.addToSquares(squareCreator());
-
+function makeRows(rows, cols) {
+  cardBox.innerHTML = "";
+  cardBox.style.gridTemplateColumns = `repeat(${rows}, minmax(0, 1fr))`;
+  cardBox.style.gridTemplateRows = `repeat(${cols}, minmax(0, 1fr)`;
+  for (let c = 0; c < rows * cols; c++) {
     const creatorSquare = squareCreator();
     managerSquare.addToSquares(creatorSquare);
-    console.log(managerSquare.getSquares()[i].getSquare());
+    console.log(managerSquare.getSquares()[c].getSquare());
 
-    const square = document.createElement("div");
-    cardBox.appendChild(square).className = "card";
+    let cell = document.createElement("div");
+    cardBox.appendChild(cell).className = "card";
 
-    square.setAttribute("data-id", creatorSquare.getId());
+    cell.setAttribute("data-id", creatorSquare.getId());
+    cell.style.backgroundColor = creatorSquare.getColor();
 
-    square.style.backgroundColor = creatorSquare.getColor();
+    numberOverall.textContent = managerSquare.getSquares().length;
+
+    clicked = 0;
+    numberClicked.textContent = clicked;
   }
 }
-createSquareGrid(9);
-numberOverall.textContent = managerSquare.getSquares().length;
+
 let clicked = 0;
+makeRows(3, 3);
 
-// function makeRows(rows, cols) {
-//   cardBox.style.gridTemplateColumns = `repeat(${rows}, minmax(0, 1fr))`;
-//   cardBox.style.gridTemplateRows = `repeat(${cols}, minmax(0, 1fr)`;
-//   for (let c = 0; c < rows * cols; c++) {
-//     const creatorSquare = squareCreator();
-//     managerSquare.addToSquares(creatorSquare);
-//     console.log(managerSquare.getSquares()[i].getSquare());
+easy.addEventListener("click", function () {
+  managerSquare.emptyArray();
+  makeRows(3, 3);
+});
+medium.addEventListener("click", function () {
+  managerSquare.emptyArray();
+  makeRows(4, 4);
+});
+hard.addEventListener("click", function () {
+  managerSquare.emptyArray();
+  makeRows(5, 5);
+});
 
-//     let square = document.createElement("div");
-//     cardBox.appendChild(square).className = "card";
-
-//     square.setAttribute("data-id", creatorSquare.getId());
-
-//     square.style.backgroundColor = creatorSquare.getColor();
-//   }
-// }
-
-// makeRows(3, 3);
+// numberOverall.textContent = managerSquare.getSquares().length;
 
 cardBox.addEventListener("click", function (e) {
   if (!e.target.classList.contains("card")) return;
@@ -84,10 +91,14 @@ cardBox.addEventListener("click", function (e) {
     numberClicked.textContent = clicked;
   } else {
     alert("GAME OVER");
+    clicked = 0;
+    numberClicked.textContent = clicked;
   }
 
   if (managerSquare.getSquares().every((x) => x.getIsClicked() === true)) {
     alert("YOU WON");
+    clicked = 0;
+    numberClicked.textContent = clicked;
   }
 
   cardBox.innerHTML = "";
