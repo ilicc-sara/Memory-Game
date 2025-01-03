@@ -10,6 +10,13 @@ const easy = document.querySelector(".easy");
 const medium = document.querySelector(".medium");
 const hard = document.querySelector(".hard");
 
+const fillGrid = function (id, color) {
+  const square = document.createElement("div");
+  cardBox.appendChild(square).className = "card";
+  square.setAttribute("data-id", id);
+  square.style.backgroundColor = color;
+};
+
 function squareCreator() {
   // prettier-ignore
   let square = { id: crypto.randomUUID(), isClicked: false, color: randomColor() };
@@ -41,16 +48,15 @@ function makeRows(rows, cols) {
   cardBox.innerHTML = "";
   cardBox.style.gridTemplateColumns = `repeat(${rows}, minmax(0, 1fr))`;
   cardBox.style.gridTemplateRows = `repeat(${cols}, minmax(0, 1fr)`;
+
+  cardBox.innerHTML = "";
+  managerSquare.shuffleSquares();
+
   for (let c = 0; c < rows * cols; c++) {
     const creatorSquare = squareCreator();
     managerSquare.addToSquares(creatorSquare);
     console.log(managerSquare.getSquares()[c].getSquare());
-
-    let cell = document.createElement("div");
-    cardBox.appendChild(cell).className = "card";
-
-    cell.setAttribute("data-id", creatorSquare.getId());
-    cell.style.backgroundColor = creatorSquare.getColor();
+    fillGrid(creatorSquare.getId(), creatorSquare.getColor());
 
     numberOverall.textContent = managerSquare.getSquares().length;
 
@@ -86,7 +92,7 @@ cardBox.addEventListener("click", function (e) {
     .getSquares()
     .find((card) => card.getId() === e.target.getAttribute("data-id"));
 
-  if (targetSquare.getIsClicked() === false) {
+  if (!targetSquare.getIsClicked()) {
     targetSquare.changeStatus(true);
     numberClicked.textContent = clicked;
   } else {
@@ -105,9 +111,9 @@ cardBox.addEventListener("click", function (e) {
   managerSquare.shuffleSquares();
 
   for (let i = 0; i < managerSquare.getSquares().length; i++) {
-    const square = document.createElement("div");
-    cardBox.appendChild(square).className = "card";
-    square.setAttribute("data-id", managerSquare.getSquares()[i].getId());
-    square.style.backgroundColor = managerSquare.getSquares()[i].getColor();
+    fillGrid(
+      managerSquare.getSquares()[i].getId(),
+      managerSquare.getSquares()[i].getColor()
+    );
   }
 });
